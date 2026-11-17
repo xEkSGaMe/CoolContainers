@@ -1,0 +1,20 @@
+# Параметры анимации creeper.
+#
+# click-timeout-seconds     — если игрок не кликнул по криперу за это время,
+#                             автоподжигается случайный.
+# session-timeout-seconds   — жёсткий лимит всей анимации.
+# creeper-count             — сколько криперов спавним.
+# creeper-radius            — радиус кольца вокруг блока (в блоках).
+# spawn-interval-ticks      — пауза между появлением каждого крипера (тики).
+# unselected-reveal-ticks   — сколько тиков держать красные красители
+#                             у невыбранных криперов, прежде чем взорвать
+#                             выбранного.
+# display-ticks             — сколько тиков показывать лаймовый краситель
+#                             с итоговой наградой.
+click-timeout-seconds: 15
+session-timeout-seconds: 60
+creeper-count: 8
+creeper-radius: 2.5
+spawn-interval-ticks: 4
+unselected-reveal-ticks: 40
+display-ticks: 120

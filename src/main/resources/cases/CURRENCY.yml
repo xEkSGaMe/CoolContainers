@@ -1,0 +1,70 @@
+type: CURRENCY
+display-name: "<gradient:#FFD700:#FFF8DC><bold>Валютный Кейс</bold></gradient>"
+permission: cases.open.currency
+
+hologram:
+  enabled: true
+  offset-y: 2.4
+  lines:
+    - "<gradient:#FFD700:#FFF8DC><bold>Кейс монет</bold></gradient>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+
+animation:
+  type: creeper
+
+rewards:
+  - id: coins_5000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>5,000 монет</bold></gradient>"
+    chance: 29.0
+    amount: 1
+    vault: { amount: 5000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>5,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_10000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>10,000 монет</bold></gradient>"
+    chance: 21.0
+    amount: 1
+    vault: { amount: 10000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>10,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_15000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>15,000 монет</bold></gradient>"
+    chance: 14.0
+    amount: 1
+    vault: { amount: 15000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>15,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_20000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>20,000 монет</bold></gradient>"
+    chance: 12.0
+    amount: 1
+    vault: { amount: 20000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>20,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_30000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>30,000 монет</bold></gradient>"
+    chance: 10.0
+    amount: 1
+    vault: { amount: 30000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>30,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_50000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>50,000 монет</bold></gradient>"
+    chance: 8.0
+    amount: 1
+    vault: { amount: 50000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>50,000⛃</bold></gradient> <gray>из Валютного Кейса"
+
+  - id: coins_100000
+    display-name: "<gradient:#fc6f00:#ff8800><bold>100,000 монет</bold></gradient>"
+    chance: 6.0
+    amount: 1
+    vault: { amount: 100000.0 }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#fc6f00:#ff8800><bold>100,000⛃</bold></gradient> <gray>из Валютного Кейса"

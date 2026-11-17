@@ -1,0 +1,40 @@
+name: CoolContainers
+version: '2.0.0'
+main: ru.coolcontainers.CoolContainersPlugin
+api-version: '1.21'
+description: Кейсы для Purpur 1.21.x
+authors: [EksGame]
+
+# Все зависимости — optional.
+#
+# join-classpath: true нужен, потому что мы ссылаемся на API этих плагинов
+# напрямую (LuckPerms API, Vault Economy, PlayerPoints API, PAPI Expansion).
+# Если плагин не установлен, Paper просто не подкладывает его jar в наш
+# classloader — и первое обращение к типу (например, в LuckPermsHook.init())
+# упадёт с NoClassDefFoundError. Это ожидаемо, поэтому:
+#
+#   1) во всех хуках init() проверяет Bukkit.getPluginManager().getPlugin(...)
+#      ДО первого касания API-типа;
+#   2) сам класс хука НЕ загружается, пока не будет вызван `new ...Hook(...)`,
+#      и JVM (HotSpot) резолвит типы полей лениво.
+#
+# Если JVM вдруг перестанет быть ленивой (GraalVM, не-HotSpot) — оборачивай
+# `new LuckPermsHook(this)` в try/catch NoClassDefFoundError в onEnable.
+dependencies:
+  server:
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    PlayerPoints:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+      join-classpath: true

@@ -1,0 +1,121 @@
+type: TREASURE_SMALL
+display-name: "<gradient:#C0C0C0:#808080><bold>Малый Сундук Сокровищницы</bold></gradient>"
+permission: cases.open.treasure_small
+
+hologram:
+  enabled: true
+  lines:
+    - "<gradient:#C0C0C0:#808080><bold>Малый сундук сокровищ</bold></gradient>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+  offset-y: 2.4              # баннер выше зоны item
+
+animation:
+  type: treasure
+  block-type: RESPAWN_ANCHOR   # блок-счётчик
+
+rewards:
+  - id: netherite_ingot_1
+    display-name: "<dark_purple>1 незеритовый слиток</dark_purple>"
+    chance: 8.0
+    amount: 1
+    items:
+      - material: NETHERITE_INGOT
+        amount: 1
+    broadcast:
+      - "<dark_purple>{player}</dark_purple> вытащил <light_purple>незеритовый слиток</light_purple> из малого сундука!"
+
+  - id: diamond_32
+    display-name: "<aqua>32 алмаза</aqua>"
+    chance: 8.0
+    amount: 1
+    items:
+      - material: DIAMOND
+        amount: 32
+
+  - id: gold_ingot_64
+    display-name: "<gold>64 золотых слитка</gold>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: GOLD_INGOT
+        amount: 64
+
+  - id: iron_ingot_128
+    display-name: "<white>128 железных слитков</white>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: IRON_INGOT
+        amount: 128
+
+  - id: gunpowder_128
+    display-name: "<gray>128 пороха</gray>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: GUNPOWDER
+        amount: 128
+
+  - id: shulker_shell_2
+    display-name: "<light_purple>2 панциря шалкера</light_purple>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: SHULKER_SHELL
+        amount: 2
+
+  - id: respawn_anchor_1
+    display-name: "<purple>Якорь возрождения</purple>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: RESPAWN_ANCHOR
+        amount: 1
+
+  - id: end_crystal_1
+    display-name: "<light_purple>Кристалл Энда</light_purple>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: END_CRYSTAL
+        amount: 1
+
+  - id: book_sharpness_5
+    display-name: "<red>Книга: Острота V</red>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: ENCHANTED_BOOK
+        amount: 1
+        enchantments:
+          - "sharpness:5"
+
+  - id: book_protection_4
+    display-name: "<aqua>Книга: Защита IV</aqua>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: ENCHANTED_BOOK
+        amount: 1
+        enchantments:
+          - "protection:4"
+
+  - id: book_unbreaking_3
+    display-name: "<yellow>Книга: Прочность III</yellow>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: ENCHANTED_BOOK
+        amount: 1
+        enchantments:
+          - "unbreaking:3"
+
+  - id: book_mending_1
+    display-name: "<green>Книга: Починка</green>"
+    chance: 8.4
+    amount: 1
+    items:
+      - material: ENCHANTED_BOOK
+        amount: 1
+        enchantments:
+          - "mending:1"

@@ -1,0 +1,87 @@
+type: RUBY
+display-name: "<gradient:#DC143C:#FF1493><bold>Рубиновый Кейс</bold></gradient>"
+description: "<red>Испытай удачу и получи рубинов!</red>"
+permission: cases.open.ruby
+
+hologram:
+  enabled: true
+  lines:
+    - "<gradient:#DC143C:#FF1493><bold>Кейс рубинов</bold></gradient>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+  offset-y: 2.4
+
+animation:
+  type: creeper
+
+rewards:
+  - id: ruby_10
+    display-name: "<red>10 рубинов</red>"
+    chance: 19.0
+    amount: 1
+    playerpoints: { amount: 10 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>10₪</bold></gradient>"
+
+  - id: ruby_20
+    display-name: "<red>20 рубинов</red>"
+    chance: 20.0
+    amount: 1
+    playerpoints: { amount: 20 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>20₪</bold></gradient>"
+
+  - id: ruby_30
+    display-name: "<red>30 рубинов</red>"
+    chance: 15.0
+    amount: 1
+    playerpoints: { amount: 30 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>30₪</bold></gradient>"
+
+  - id: ruby_50
+    display-name: "<red>50 рубинов</red>"
+    chance: 15.0
+    amount: 1
+    playerpoints: { amount: 50 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>50₪</bold></gradient>"
+
+  - id: ruby_75
+    display-name: "<red>75 рубинов</red>"
+    chance: 12.0
+    amount: 1
+    playerpoints: { amount: 75 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>75₪</bold></gradient>"
+
+  - id: ruby_100
+    display-name: "<red>100 рубинов</red>"
+    chance: 10.0
+    amount: 1
+    playerpoints: { amount: 100 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>100₪</bold></gradient>"
+
+  - id: ruby_150
+    display-name: "<red>150 рубинов</red>"
+    chance: 5.0
+    amount: 1
+    playerpoints: { amount: 150 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>150₪</bold></gradient>"
+
+  - id: ruby_200
+    display-name: "<red>200 рубинов</red>"
+    chance: 3.0
+    amount: 1
+    playerpoints: { amount: 200 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>200₪</bold></gradient>"
+
+  - id: ruby_500
+    display-name: "<red>500 рубинов</red>"
+    chance: 1.0
+    amount: 1
+    playerpoints: { amount: 500 }
+    broadcast:
+      - "<gradient:#DC143C:#EE1D70><bold>500₪</bold></gradient>"

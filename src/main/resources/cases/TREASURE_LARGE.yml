@@ -1,0 +1,48 @@
+type: TREASURE_LARGE
+display-name: "<gradient:#8B0000:#FFD700><bold>Большой сундук сокровищницы</bold></gradient>"
+permission: cases.open.treasure_large
+
+hologram:
+  enabled: true
+  lines:
+    - "<gradient:#8B0000:#FFD700><bold>Большой сундук сокровищ</bold></gradient>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+  offset-y: 1.4
+
+animation:
+  type: treasure
+
+rewards:
+  - id: netherite_block_1
+    display-name: "<dark_purple>Незеритовый блок</dark_purple>"
+    chance: 2.0
+    amount: 1
+    items:
+      - material: NETHERITE_BLOCK
+        amount: 1
+    broadcast:
+      - "<dark_purple>{player}</dark_purple> вытащил <light_purple>незеритовый блок</light_purple> из большого сундука!"
+
+  - id: netherite_4
+    display-name: "<dark_purple>4 незеритовых слитка</dark_purple>"
+    chance: 18.0
+    amount: 1
+    items:
+      - material: NETHERITE_INGOT
+        amount: 4
+
+  - id: diamond_block_16
+    display-name: "<aqua>16 алмазных блоков</aqua>"
+    chance: 30.0
+    amount: 1
+    items:
+      - material: DIAMOND_BLOCK
+        amount: 16
+
+  - id: emerald_block_16
+    display-name: "<green>16 изумрудных блоков</green>"
+    chance: 50.0
+    amount: 1
+    items:
+      - material: EMERALD_BLOCK
+        amount: 16

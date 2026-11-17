@@ -1,0 +1,46 @@
+# ============================================================
+#  CoolContainers — сообщения (MiniMessage)
+# ============================================================
+
+prefix: "<gradient:#0885FB:#18D9F5>🎁</gradient> <gradient:#00BFFF:#8A2BE2><bold>CoolContainers</bold></gradient> <dark_gray>»</dark_gray> "
+general:
+  no-permission: "<red>Недостаточно прав.</red>"
+  player-only: "<red>Команда доступна только игрокам.</red>"
+  unknown-case: "<red>Кейс <white>{case}</white> не найден.</red>"
+  invalid-args: "<red>Неверные аргументы. Используй <white>/caseadmin</white> для справки.</red>"
+  reloaded: "<green>Конфиги и кейсы перезагружены.</green>"
+
+startup:
+  enabled: "<green>CoolContainers запущен. server-id=<white>{server}</white></green>"
+  disabled: "<yellow>CoolContainers остановлен.</yellow>"
+
+keys:
+  given: "<green>Игроку {player} выдано {amount} ключей кейса {case}.</green>"
+  taken: "<yellow>У игрока {player} изъято {amount} ключей кейса {case}.</yellow>"
+  set: "<green>Игроку {player} установлено {amount} ключей кейса {case}.</green>"
+  not-enough: "<red>У игрока недостаточно ключей.</red>"
+
+case:
+  opened: "<white>Ты открыл кейс <gradient:#0885FB:#18D9F5><bold>{case}</bold></gradient>"
+  won: "<white>Ты выиграл: {reward}"
+  busy: "<red>Этот блок сейчас занят.</red>"
+  too-many: "<red>Слишком много открытий сейчас, попробуй позже.</red>"
+  no-key: "<red>Недостаточно ключей.</red>"
+  cancelled: "<yellow>Открытие отменено, ключ возвращён.</yellow>"
+  broadcast:
+      line-top: "<dark_gray>                                                          "
+      divider: "<gradient:#0885FB:#18D9F5>     ✦ ─────────────────────── ✦     </gradient>"
+      brand: "<gradient:#0885FB:#18D9F5><bold>          CLOUDWARS          </bold></gradient>"
+      spacer: "<dark_gray>                                                          "
+      win: "<white>     {player} <gray>выиграл {reward} <gray>из <white>{case}"
+      site: "<click:open_url:'https://cloudwars.ru'><gray>          <#14dede><u>cloudwars.ru</u></#14dede></gray></click>"
+      line-bottom: "<dark_gray>                                                          "
+
+admin:
+  case-created: "<green>Кейс {case} создан.</green>"
+  case-deleted: "<green>Кейс {case} удалён.</green>"
+  block-bound: "<green>Блок привязан к кейсу {case}.</green>"
+  block-unbound: "<green>Блок отвязан.</green>"
+  reward-saved: "<green>Награда сохранена.</green>"
+  input-cancelled: "<yellow>Ввод отменён.</yellow>"
+  input-invalid-number: "<red>Неверное число.</red>"

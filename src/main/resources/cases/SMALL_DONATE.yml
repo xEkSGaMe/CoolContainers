@@ -1,0 +1,99 @@
+type: SMALL_DONATE
+display-name: "<gradient:#87CEEB:#FFD700><bold>Малый Донатный Кейс</bold></gradient>"
+permission: cases.open.small_donate
+
+hologram:
+  enabled: true
+  offset-y: 2.4
+  lines:
+    - "<gradient:#87CEEB:#FFD700><bold>Малый донат-кейс</bold></gradient>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+
+animation:
+  type: bee
+
+rewards:
+  # ===== WARDEN =====
+  - id: warden_15d
+    display-name: "<gradient:#1b9007:#37a400><bold>WARDEN</bold></gradient> <gray>на <white>15</white> дней</gray>"
+    chance: 60.0
+    amount: 1
+    luckperms: { group: warden, duration: 15d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#1b9007:#37a400><bold>WARDEN</bold></gradient> <gray>на <white>15 дней</white> <gray>из Малого донат-кейса"
+
+  - id: warden_30d
+    display-name: "<gradient:#1b9007:#37a400><bold>WARDEN</bold></gradient> <gray>на <white>30</white> дней</gray>"
+    chance: 10.0
+    amount: 1
+    luckperms: { group: warden, duration: 30d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#1b9007:#37a400><bold>WARDEN</bold></gradient> <gray>на <white>30 дней</white> <gray>из Малого донат-кейса"
+
+  # ===== GLADIATOR =====
+  - id: gladiator_15d
+    display-name: "<gradient:#eaec00:#e6df27><bold>GLADIATOR</bold></gradient> <gray>на <white>15</white> дней</gray>"
+    chance: 15.0
+    amount: 1
+    luckperms: { group: gladiator, duration: 15d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#eaec00:#e6df27><bold>GLADIATOR</bold></gradient> <gray>на <white>15 дней</white> <gray>из Малого донат-кейса"
+
+  - id: gladiator_30d
+    display-name: "<gradient:#eaec00:#e6df27><bold>GLADIATOR</bold></gradient> <gray>на <white>30</white> дней</gray>"
+    chance: 5.0
+    amount: 1
+    luckperms: { group: gladiator, duration: 30d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#eaec00:#e6df27><bold>GLADIATOR</bold></gradient> <gray>на <white>30 дней</white> <gray>из Малого донат-кейса"
+
+  # ===== KNIGHT =====
+  - id: knight_15d
+    display-name: "<gradient:#ec930e:#e96302><bold>KNIGHT</bold></gradient> <gray>на <white>15</white> дней</gray>"
+    chance: 4.0
+    amount: 1
+    luckperms: { group: knight, duration: 15d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#ec930e:#e96302><bold>KNIGHT</bold></gradient> <gray>на <white>15 дней</white> <gray>из Малого донат-кейса"
+
+  - id: knight_30d
+    display-name: "<gradient:#ec930e:#e96302><bold>KNIGHT</bold></gradient> <gray>на <white>30</white> дней</gray>"
+    chance: 2.0
+    amount: 1
+    luckperms: { group: knight, duration: 30d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#ec930e:#e96302><bold>KNIGHT</bold></gradient> <gray>на <white>30 дней</white> <gray>из Малого донат-кейса"
+
+  # ===== PRINCE =====
+  - id: prince_15d
+    display-name: "<gradient:#e107f3:#f50cc1><bold>PRINCE</bold></gradient> <gray>на <white>15</white> дней</gray>"
+    chance: 2.0
+    amount: 1
+    luckperms: { group: prince, duration: 15d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#e107f3:#f50cc1><bold>PRINCE</bold></gradient> <gray>на <white>15 дней</white> <gray>из Малого донат-кейса"
+
+  - id: prince_30d
+    display-name: "<gradient:#e107f3:#f50cc1><bold>PRINCE</bold></gradient> <gray>на <white>30</white> дней</gray>"
+    chance: 0.5
+    amount: 1
+    luckperms: { group: prince, duration: 30d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#e107f3:#f50cc1><bold>PRINCE</bold></gradient> <gray>на <white>30 дней</white> <gray>из Малого донат-кейса"
+
+  # ===== KING =====
+  - id: king_15d
+    display-name: "<gradient:#f30275:#f50049><bold>KING</bold></gradient> <gray>на <white>15</white> дней</gray>"
+    chance: 1.0
+    amount: 1
+    luckperms: { group: king, duration: 15d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#f30275:#f50049><bold>KING</bold></gradient> <gray>на <white>15 дней</white> <gray>из Малого донат-кейса"
+
+  - id: king_30d
+    display-name: "<gradient:#f30275:#f50049><bold>KING</bold></gradient> <gray>на <white>30</white> дней</gray>"
+    chance: 0.5
+    amount: 1
+    luckperms: { group: king, duration: 30d, server: global }
+    broadcast:
+      - "<white>{player} <gray>выиграл <gradient:#f30275:#f50049><bold>KING</bold></gradient> <gray>на <white>30 дней</white> <gray>из Малого донат-кейса"

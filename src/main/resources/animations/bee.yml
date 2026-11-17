@@ -1,0 +1,28 @@
+# Параметры анимации bee.
+#
+# click-timeout-seconds     — если игрок не кликнул за это время, автовыбор.
+# session-timeout-seconds   — жёсткий лимит всей анимации.
+# bee-count                 — сколько пчёл вылетает из блока.
+# orbit-radius              — радиус ОСНОВНОГО круга кружения (в блоках).
+# hover-height              — высота орбиты над Y блока (block.y + это).
+# spawn-interval-ticks      — пауза между вылетами соседних пчёл (тики).
+# flight-ticks              — длительность полёта от блока к малому кругу.
+# inner-orbit-ticks         — сколько тиков крутить МАЛЫЙ круг.
+# expand-ticks              — сколько тиков плавно расширяться до основного.
+# inner-radius-factor       — доля малого радиуса от основного (0.5 = половина).
+# orbit-speed               — радиан за тик на орбите (0.06 ≈ круг за 5.2 с).
+# unselected-reveal-ticks   — сколько тиков держать красные красители.
+# display-ticks             — сколько тиков показывать итоговую награду.
+click-timeout-seconds: 20
+session-timeout-seconds: 90
+bee-count: 8
+orbit-radius: 2.5
+hover-height: 2.5
+spawn-interval-ticks: 6
+flight-ticks: 30
+inner-orbit-ticks: 30
+expand-ticks: 25
+inner-radius-factor: 0.5
+orbit-speed: 0.06
+unselected-reveal-ticks: 50
+display-ticks: 160

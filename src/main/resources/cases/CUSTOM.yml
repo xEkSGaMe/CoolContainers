@@ -1,0 +1,24 @@
+type: CUSTOM
+display-name: "<white>Кастомный кейс</white>"
+permission: cases.open.custom
+
+hologram:
+  enabled: true
+  lines:
+    - "<white>Кастомный кейс</white>"
+    - "<gray>ПКМ чтобы открыть</gray>"
+  offset-y: 1.4
+
+animation:
+  type: creeper
+
+# Шаблон для админских кейсов.
+# Меняй награды через /caseadmin edit custom
+rewards:
+  - id: example
+    display-name: "<gray>Пример награды</gray>"
+    chance: 100.0
+    amount: 1
+    items:
+      - material: STONE
+        amount: 1

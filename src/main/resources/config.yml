@@ -1,0 +1,41 @@
+# ============================================================
+#  CoolContainers — основной конфиг
+# ============================================================
+
+# Уникальный идентификатор этого backend-сервера.
+# Меняй только если поднимаешь второй сервер.
+server-id: "towny"
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  name: "coolcontainers"
+  user: "root"
+  password: "changeme"
+  pool-size: 16
+  async-threads: 4
+
+blocks:
+  # Мир, в котором разрешены блоки кейсов.
+  allowed-world: "world"
+  # server-id сервера, который "владеет" блоками кейсов.
+  # На остальных серверах блоки не регистрируются.
+  host-server-id: "towny"
+  # Глобальный КД на блок после завершения анимации (сек).
+  cooldown-seconds: 3
+
+animations:
+  # Максимум одновременных анимаций на сервер.
+  max-concurrent: 10
+
+retention:
+  # Хранение в днях.
+  key-transactions-days: 14
+  reward-grants-days: 14
+  admin-logs-days: 14
+  case-openings-days: 30
+  # Размер батча при очистке.
+  batch-size: 1000
+  # Интервал автоматической очистки (в минутах).
+  # 0 = отключить автоочистку.
+  interval-minutes: 60
