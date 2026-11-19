@@ -14,11 +14,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.coolcontainers.api.enums.KeyReason;
 import ru.coolcontainers.api.events.CaseOpenCancelEvent;
 import ru.coolcontainers.api.events.CaseOpenCompleteEvent;
 import ru.coolcontainers.block.BlockKey;
 import ru.coolcontainers.block.BlockLockService;
+import ru.coolcontainers.block.KeyLineHologramService;
 import ru.coolcontainers.cases.dto.CaseDefinition;
 import ru.coolcontainers.cases.dto.Reward;
 import ru.coolcontainers.cases.dto.RewardSnapshot;
@@ -28,6 +30,7 @@ import ru.coolcontainers.db.repository.OpeningRepository;
 import ru.coolcontainers.key.KeyService;
 import ru.coolcontainers.open.RewardGranter;
 import ru.coolcontainers.open.RewardRoller;
+import ru.coolcontainers.util.ChatUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,6 +62,14 @@ public final class AnimationService implements Listener {
     private final int maxConcurrent;
     private final String serverId;
 
+    /**
+     * Строка «Ключей: N» под голограммой блока. Может быть null, если
+     * блок-модуль не активен. Подавляется на время ЛЮБОЙ анимации
+     * (см. {@link #suppressKeyLine}/{@link #unsuppressKeyLine}), а не
+     * только treasure — раньше это делал сам TreasureSession.
+     */
+    private final @Nullable KeyLineHologramService keyLineHolograms;
+
     private final Map<String, CaseAnimation> animations = new LinkedHashMap<>();
     private final Map<UUID, AnimationSession> sessions = new LinkedHashMap<>();
     private final Map<UUID, UUID> entityToSession = new LinkedHashMap<>();
@@ -78,6 +89,7 @@ public final class AnimationService implements Listener {
                             @NotNull OpeningRepository openingRepo,
                             int maxConcurrent,
                             @NotNull String serverId,
+                            @Nullable KeyLineHologramService keyLineHolograms,
                             @NotNull CaseAnimation... animations) {
         this.plugin = plugin;
         this.dbExecutor = dbExecutor;
@@ -89,6 +101,7 @@ public final class AnimationService implements Listener {
         this.openingRepo = openingRepo;
         this.maxConcurrent = maxConcurrent;
         this.serverId = serverId;
+        this.keyLineHolograms = keyLineHolograms;
         for (CaseAnimation a : animations) register(a);
     }
 
@@ -159,6 +172,9 @@ public final class AnimationService implements Listener {
                 blockLocks.forceUnlock(s.blockKey());
             } catch (Throwable ignored) {
             }
+
+            // Анимация прервана выключением — строка ключей больше не подавлена.
+            unsuppressKeyLine(s.blockKey());
         }
 
         sessions.clear();
@@ -222,9 +238,23 @@ public final class AnimationService implements Listener {
         playerSessions.computeIfAbsent(playerUuid, k -> new LinkedHashMap<>())
                 .put(blockKey, sessionId);
 
+        // Строка «Ключей: N» прячется на всё время анимации — для ЛЮБОГО
+        // типа (bee/creeper/treasure), не только treasure.
+        suppressKeyLine(blockKey);
+
         log.info("Анимация стартовала: player=" + player.getName()
                 + " case=" + def.getId() + " block=" + blockKey
                 + " session=" + sessionId + " server=" + serverId);
+    }
+
+    /** Временно скрыть строку «Ключей: N» на блоке (идёт анимация). */
+    private void suppressKeyLine(@NotNull BlockKey key) {
+        if (keyLineHolograms != null) keyLineHolograms.suppress(key);
+    }
+
+    /** Показать строку «Ключей: N» после завершения анимации. */
+    private void unsuppressKeyLine(@NotNull BlockKey key) {
+        if (keyLineHolograms != null) keyLineHolograms.unsuppress(key);
     }
 
     public boolean handleEntityClick(@NotNull Player clicker, @NotNull Entity entity) {
@@ -272,6 +302,10 @@ public final class AnimationService implements Listener {
         try { s.cleanup(); }
         catch (Throwable t) { log.warning("finish.cleanup " + s.sessionId() + ": " + t.getMessage()); }
 
+        // Анимация закончилась (успех или отмена) — строка «Ключей: N»
+        // снова видна. Восстановится тиком KeyLineHologramService (≤1 сек).
+        unsuppressKeyLine(s.blockKey());
+
         try {
             if (s.state() == AnimationSession.State.COMPLETED) complete(s);
             else cancel(s);
@@ -301,60 +335,55 @@ public final class AnimationService implements Listener {
                 }));
     }
 
-    /** Личное сообщение + глобальный broadcast с обёрткой из messages.yml. */
+    /**
+     * Личное сообщение победителю + глобальный broadcast.
+     *
+     * Личное сообщение — {@code case.won} из messages.yml: название кейса
+     * своим градиентом, пустая строка-отступ и "Награда: <цветная награда>".
+     * Каждая строка центрируется по ширине чата (см. {@link ChatUtil}).
+     *
+     * Broadcast — {@code case.broadcast} из messages.yml: две строки
+     * (кто что получил + ссылка на сайт), отправляются одним сообщением.
+     */
     private void notifyGrantSuccess(@NotNull AnimationSession s, @NotNull Reward reward) {
         MiniMessage mm = MiniMessage.miniMessage();
         String playerName = s.player().getName();
         String caseDisplay = s.definition().getDisplayName();
+        String rewardDisplay = reward.getDisplayName();
 
         Messages msgs = null;
         if (plugin instanceof ru.coolcontainers.CoolContainersPlugin ccp) {
             msgs = ccp.messages();
         }
 
-        // Личное сообщение (только победителю)
+        // Личное сообщение (только победителю).
         if (s.player().isOnline()) {
             if (msgs != null) {
-                s.player().sendMessage(msgs.component("case.won",
-                        Map.of("reward", reward.getDisplayName())));
+                s.player().sendMessage(ChatUtil.centerLines(msgs.raw("case.won",
+                        Map.of("case", caseDisplay, "reward", rewardDisplay))));
             } else {
-                s.player().sendMessage(mm.deserialize(
-                        "<white>Ты выиграл: " + reward.getDisplayName()));
+                s.player().sendMessage(ChatUtil.centerLines(
+                        caseDisplay + "\n\n<gray>Награда:</gray> " + rewardDisplay));
             }
+            // Отступ в одну строку, чтобы личная награда не сливалась с broadcast.
+            s.player().sendMessage(Component.empty());
         }
 
-        // Текст награды для broadcast: broadcast-строка из YAML (если есть), иначе display-name
-        String rewardText;
-        if (!reward.getBroadcast().isEmpty()) {
-            rewardText = String.join("<newline>", reward.getBroadcast())
-                    .replace("{player}", playerName);
-        } else {
-            rewardText = reward.getDisplayName();
-        }
+        // Глобальный broadcast: единый шаблон из messages.yml,
+        // награда — её собственный display-name (со своим цветом).
+        Map<String, String> ph = Map.of(
+                "player", playerName,
+                "reward", rewardDisplay,
+                "case",   caseDisplay);
 
-        // Глобальный broadcast через шаблон из messages.yml
         if (msgs != null) {
-            Map<String, String> ph = Map.of(
-                    "player", playerName,
-                    "reward", rewardText,
-                    "case",   caseDisplay);
-
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.line-top", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.divider", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.brand", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.divider", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.spacer", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.win", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.spacer", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.divider", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.site", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.divider", ph));
-            Bukkit.getServer().sendMessage(msgs.component("case.broadcast.line-bottom", ph));
+            Bukkit.getServer().sendMessage(msgs.component("case.broadcast", ph));
         } else {
-            // Fallback без messages.yml
             Bukkit.getServer().sendMessage(mm.deserialize(
-                    "<gray>— " + playerName + " выиграл " + rewardText
-                            + " из " + caseDisplay));
+                    "<#00BFFF>" + playerName + "</#00BFFF> <gray>получил</gray> "
+                            + rewardDisplay + " <gray>из</gray> " + caseDisplay + "\n"
+                            + "<gray>Приобрести кейс можно на сайте </gray><dark_gray>- </dark_gray>"
+                            + "<click:open_url:'https://cloudwars.ru'><#14dede><underlined>ᴄʟᴏᴜᴅᴡᴀʀs.ʀᴜ</underlined></#14dede></click>"));
         }
 
         Bukkit.getPluginManager().callEvent(new CaseOpenCompleteEvent(

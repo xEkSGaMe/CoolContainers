@@ -229,13 +229,13 @@ public final class CoolContainersPlugin extends JavaPlugin {
         BeeAnimation beeAnimation = new BeeAnimation(this, beeSettings);
 
         TreasureSettings treasureSettings = TreasureSettings.load(this);
-        TreasureAnimation treasureAnimation = new TreasureAnimation(
-                this, treasureSettings, keyLineHologramService);
+        TreasureAnimation treasureAnimation = new TreasureAnimation(this, treasureSettings);
 
         this.animationService = new AnimationService(
                 this, dbExecutor, rewardRoller, rewardGranter, keyService, blockLockService,
                 openingRepository,
                 pluginConfig.getMaxConcurrentAnimations(), serverId,
+                keyLineHologramService,
                 creeperAnimation, beeAnimation, treasureAnimation);
         animationService.start();
         getServer().getPluginManager().registerEvents(animationService, this);

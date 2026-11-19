@@ -1,5 +1,5 @@
 type: TREASURE_MEDIUM
-display-name: "<gradient:#FFD700:#8B0000><bold>Средний сундук сокровищницы/bold></gradient>"
+display-name: "<gradient:#FFD700:#8B0000><bold>Средний сундук сокровищницы</bold></gradient>"
 permission: cases.open.treasure_medium
 
 hologram:
@@ -14,7 +14,7 @@ animation:
 
 rewards:
   - id: netherite_2
-    display-name: "<dark_purple>2 незеритовых слитка</dark_purple>"
+    display-name: "<dark_purple>2 Незеритовых слитка</dark_purple>"
     chance: 5.0
     amount: 1
     items:
@@ -22,7 +22,7 @@ rewards:
         amount: 2
 
   - id: diamond_block_4
-    display-name: "<aqua>4 алмазных блока</aqua>"
+    display-name: "<aqua>4 Алмазных блока</aqua>"
     chance: 25.0
     amount: 1
     items:
@@ -30,7 +30,7 @@ rewards:
         amount: 4
 
   - id: emerald_32
-    display-name: "<green>32 изумруда</green>"
+    display-name: "<green>32 Изумруда</green>"
     chance: 70.0
     amount: 1
     items:

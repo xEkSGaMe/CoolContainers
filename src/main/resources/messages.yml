@@ -22,19 +22,25 @@ keys:
 
 case:
   opened: "<white>Ты открыл кейс <gradient:#0885FB:#18D9F5><bold>{case}</bold></gradient>"
-  won: "<white>Ты выиграл: {reward}"
+  # Личное сообщение победителю. Блок строк:
+  #  1) название кейса по центру — тем же градиентом, что в голограмме (display-name);
+  #  2) пустая строка-отступ;
+  #  3) "Награда:" + название награды в её собственном цвете.
+  won: |-
+    {case}
+
+    <gray>Награда:</gray> {reward}
+
   busy: "<red>Этот блок сейчас занят.</red>"
   too-many: "<red>Слишком много открытий сейчас, попробуй позже.</red>"
   no-key: "<red>Недостаточно ключей.</red>"
   cancelled: "<yellow>Открытие отменено, ключ возвращён.</yellow>"
-  broadcast:
-      line-top: "<dark_gray>                                                          "
-      divider: "<gradient:#0885FB:#18D9F5>     ✦ ─────────────────────── ✦     </gradient>"
-      brand: "<gradient:#0885FB:#18D9F5><bold>          CLOUDWARS          </bold></gradient>"
-      spacer: "<dark_gray>                                                          "
-      win: "<white>     {player} <gray>выиграл {reward} <gray>из <white>{case}"
-      site: "<click:open_url:'https://cloudwars.ru'><gray>          <#14dede><u>cloudwars.ru</u></#14dede></gray></click>"
-      line-bottom: "<dark_gray>                                                          "
+  # Глобальный broadcast всем игрокам — ровно две строки, без рамок и пустых строк.
+  # {player} — ник победителя, {reward} — награда своим цветом,
+  # {case} — название кейса с его градиентом (display-name).
+  broadcast: |-
+    [<gradient:#0885FB:#18D9F5>🎁</gradient>] <#00BFFF>{player}</#00BFFF> <gray>получил</gray> {reward} <gray>из</gray> {case}
+    [<gradient:#0885FB:#18D9F5>🎁</gradient>] <gray>Приобрести кейс можно на сайте </gray><dark_gray>- </dark_gray><click:open_url:'https://cloudwars.ru'><hover:show_text:'<#14dede>cloudwars.ru'><underlined><#14dede>ᴄʟᴏᴜᴅᴡᴀʀs.ʀᴜ</#14dede></underlined></hover></click>
 
 admin:
   case-created: "<green>Кейс {case} создан.</green>"

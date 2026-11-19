@@ -15,17 +15,17 @@ animation:
 
 rewards:
   - id: netherite_ingot_1
-    display-name: "<dark_purple>1 незеритовый слиток</dark_purple>"
+    display-name: "<dark_purple>1 Незеритовый слиток</dark_purple>"
     chance: 8.0
     amount: 1
     items:
       - material: NETHERITE_INGOT
         amount: 1
     broadcast:
-      - "<dark_purple>{player}</dark_purple> вытащил <light_purple>незеритовый слиток</light_purple> из малого сундука!"
+      - "<dark_purple>{player}</dark_purple> вытащил <light_purple>Незеритовый слиток</light_purple> из малого сундука!"
 
   - id: diamond_32
-    display-name: "<aqua>32 алмаза</aqua>"
+    display-name: "<aqua>32 Алмаза</aqua>"
     chance: 8.0
     amount: 1
     items:
@@ -33,7 +33,7 @@ rewards:
         amount: 32
 
   - id: gold_ingot_64
-    display-name: "<gold>64 золотых слитка</gold>"
+    display-name: "<gold>64 Золотых слитка</gold>"
     chance: 8.4
     amount: 1
     items:
@@ -41,7 +41,7 @@ rewards:
         amount: 64
 
   - id: iron_ingot_128
-    display-name: "<white>128 железных слитков</white>"
+    display-name: "<white>128 Железных слитков</white>"
     chance: 8.4
     amount: 1
     items:
@@ -49,7 +49,7 @@ rewards:
         amount: 128
 
   - id: gunpowder_128
-    display-name: "<gray>128 пороха</gray>"
+    display-name: "<gray>128 Пороха</gray>"
     chance: 8.4
     amount: 1
     items:
@@ -57,7 +57,7 @@ rewards:
         amount: 128
 
   - id: shulker_shell_2
-    display-name: "<light_purple>2 панциря шалкера</light_purple>"
+    display-name: "<light_purple>2 Панциря шалкера</light_purple>"
     chance: 8.4
     amount: 1
     items:
@@ -81,7 +81,7 @@ rewards:
         amount: 1
 
   - id: book_sharpness_5
-    display-name: "<red>Книга: Острота V</red>"
+    display-name: "<red>Острота V</red>"
     chance: 8.4
     amount: 1
     items:
@@ -91,7 +91,7 @@ rewards:
           - "sharpness:5"
 
   - id: book_protection_4
-    display-name: "<aqua>Книга: Защита IV</aqua>"
+    display-name: "<aqua>Защита IV</aqua>"
     chance: 8.4
     amount: 1
     items:
@@ -101,7 +101,7 @@ rewards:
           - "protection:4"
 
   - id: book_unbreaking_3
-    display-name: "<yellow>Книга: Прочность III</yellow>"
+    display-name: "<yellow>Прочность III</yellow>"
     chance: 8.4
     amount: 1
     items:
@@ -111,7 +111,7 @@ rewards:
           - "unbreaking:3"
 
   - id: book_mending_1
-    display-name: "<green>Книга: Починка</green>"
+    display-name: "<green>Починка</green>"
     chance: 8.4
     amount: 1
     items:

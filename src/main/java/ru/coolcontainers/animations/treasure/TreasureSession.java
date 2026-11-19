@@ -25,7 +25,6 @@ import ru.coolcontainers.animations.AnimationContext;
 import ru.coolcontainers.animations.AnimationSession;
 import ru.coolcontainers.api.enums.KeyReason;
 import ru.coolcontainers.block.BlockKey;
-import ru.coolcontainers.block.KeyLineHologramService;
 import ru.coolcontainers.cases.dto.CaseDefinition;
 import ru.coolcontainers.cases.dto.Reward;
 import ru.coolcontainers.util.MiniMessageUtil;
@@ -61,7 +60,6 @@ public final class TreasureSession implements AnimationSession {
     private final BlockKey blockKey;
     private final TreasureConfig config;
     private final JavaPlugin plugin;
-    private final @Nullable KeyLineHologramService keyLineHologramService;
 
     private final Reward reward;
     private final ItemStack icon;
@@ -89,8 +87,7 @@ public final class TreasureSession implements AnimationSession {
 
     public TreasureSession(@NotNull AnimationContext ctx,
                            @NotNull TreasureConfig config,
-                           @NotNull JavaPlugin plugin,
-                           @Nullable KeyLineHologramService keyLineHologramService) {
+                           @NotNull JavaPlugin plugin) {
         this.sessionId = ctx.sessionId();
         this.openingId = ctx.openingId();
         this.player = ctx.player();
@@ -99,7 +96,6 @@ public final class TreasureSession implements AnimationSession {
         this.blockKey = ctx.blockKey();
         this.config = config;
         this.plugin = plugin;
-        this.keyLineHologramService = keyLineHologramService;
 
         this.reward = ctx.roller().roll(definition);
         this.icon = iconFor(reward);
@@ -180,9 +176,7 @@ public final class TreasureSession implements AnimationSession {
         World world = blockLocation.getWorld();
         if (world == null) return;
 
-        if (keyLineHologramService != null) {
-            keyLineHologramService.suppress(blockKey);
-        }
+        // Строку «Ключей: N» прячет AnimationService для всех типов анимаций.
 
         Block block = world.getBlockAt(blockLocation);
         Material expected = config.blockType();
@@ -446,9 +440,7 @@ public final class TreasureSession implements AnimationSession {
         }
         currentCharge = 0;
 
-        if (keyLineHologramService != null) {
-            keyLineHologramService.unsuppress(blockKey);
-        }
+        // Строку «Ключей: N» снова показывает AnimationService (для всех типов).
 
         World world = blockLocation.getWorld();
         if (world == null) return;
