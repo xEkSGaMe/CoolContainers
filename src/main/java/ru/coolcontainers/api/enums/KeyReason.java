@@ -9,7 +9,9 @@ public enum KeyReason {
     REFUND_ABORTED,
     REFUND_RECOVERY,
     REFUND_TIMEOUT,
-    MIGRATION;
+    MIGRATION,
+    /** Выдача ключей сторонним плагином через {@link ru.coolcontainers.api.CoolContainersAPI}. */
+    PLUGIN_GIVE;
 
     public boolean isRefund() {
         return this == REFUND_ABORTED || this == REFUND_RECOVERY || this == REFUND_TIMEOUT;

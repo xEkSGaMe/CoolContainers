@@ -15,6 +15,9 @@ import ru.coolcontainers.animations.creeper.CreeperAnimation;
 import ru.coolcontainers.animations.creeper.CreeperSettings;
 import ru.coolcontainers.animations.treasure.TreasureAnimation;
 import ru.coolcontainers.animations.treasure.TreasureSettings;
+import ru.coolcontainers.api.CoolContainersAPI;
+import ru.coolcontainers.api.KeyGrantResult;
+import ru.coolcontainers.api.enums.KeyReason;
 import ru.coolcontainers.block.BlockLockService;
 import ru.coolcontainers.block.BlockProtectionListener;
 import ru.coolcontainers.block.CaseBlockService;
@@ -60,9 +63,12 @@ import ru.coolcontainers.open.RewardRoller;
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
-public final class CoolContainersPlugin extends JavaPlugin {
+public final class CoolContainersPlugin extends JavaPlugin implements CoolContainersAPI {
 
     // Конфиг и БД
     private PluginConfig pluginConfig;
@@ -394,6 +400,77 @@ public final class CoolContainersPlugin extends JavaPlugin {
             }
         } catch (SQLException e) {
             getLogger().warning("Не удалось синхронизировать хэши кейсов: " + e.getMessage());
+        }
+    }
+
+    // ------------------------------------------------------------------
+    //  Публичный API для других плагинов
+    // ------------------------------------------------------------------
+
+    @Override
+    public boolean hasCase(@NotNull String caseId) {
+        return caseRegistry != null && caseRegistry.has(caseId.toLowerCase(Locale.ROOT));
+    }
+
+    @Override
+    public @NotNull CompletableFuture<KeyGrantResult> giveKeys(@NotNull UUID player,
+                                                               @NotNull String caseId,
+                                                               int amount,
+                                                               @NotNull String sourcePlugin,
+                                                               @Nullable UUID sourcePlayer) {
+        if (!isEnabled() || dbExecutor == null || keyService == null || caseRegistry == null) {
+            return CompletableFuture.completedFuture(
+                    KeyGrantResult.fail(KeyGrantResult.Failure.PLUGIN_DISABLED));
+        }
+
+        final String cid = caseId.toLowerCase(Locale.ROOT);
+        if (amount <= 0) {
+            return CompletableFuture.completedFuture(
+                    KeyGrantResult.fail(KeyGrantResult.Failure.INVALID_AMOUNT));
+        }
+        if (!caseRegistry.has(cid)) {
+            return CompletableFuture.completedFuture(
+                    KeyGrantResult.fail(KeyGrantResult.Failure.UNKNOWN_CASE));
+        }
+
+        try {
+            return dbExecutor.supply(() -> {
+                int newAmount = keyService.addKeys(player, cid, amount,
+                        KeyReason.PLUGIN_GIVE, sourcePlayer);
+                try {
+                    adminLogRepository.logSystem("api.givekeys", Map.of(
+                            "plugin", sourcePlugin,
+                            "target", player.toString(),
+                            "case", cid,
+                            "amount", amount,
+                            "new", newAmount));
+                } catch (SQLException e) {
+                    // Ключи уже начислены — аудит не должен откатывать выдачу.
+                    getLogger().warning("api.givekeys: не удалось записать аудит: " + e.getMessage());
+                }
+                return KeyGrantResult.ok(newAmount);
+            }).exceptionally(ex -> {
+                getLogger().warning("api.givekeys: ошибка выдачи " + player + "/" + cid + ": " + ex);
+                return KeyGrantResult.fail(KeyGrantResult.Failure.DB_ERROR);
+            });
+        } catch (RuntimeException e) {
+            // Редкий race с onDisable(): пул уже shutdown.
+            return CompletableFuture.completedFuture(
+                    KeyGrantResult.fail(KeyGrantResult.Failure.PLUGIN_DISABLED));
+        }
+    }
+
+    @Override
+    public @NotNull CompletableFuture<Integer> getKeys(@NotNull UUID player, @NotNull String caseId) {
+        if (!isEnabled() || dbExecutor == null || keyService == null) {
+            return CompletableFuture.failedFuture(
+                    new IllegalStateException("CoolContainers is not enabled"));
+        }
+        final String cid = caseId.toLowerCase(Locale.ROOT);
+        try {
+            return dbExecutor.supply(() -> keyService.getAmount(player, cid));
+        } catch (RuntimeException e) {
+            return CompletableFuture.failedFuture(e);
         }
     }
 
